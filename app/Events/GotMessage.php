@@ -31,7 +31,7 @@ class GotMessage implements ShouldBroadcast
     {
         // $this->message is available here
         return [
-            new Channel('channel-for-everyone'),
+            new Channel('chat'),
         ];
     }
 }

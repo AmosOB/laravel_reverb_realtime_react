@@ -25,20 +25,20 @@ const MessageInput = ({ rootUrl }) => {
     };
 
     return (
-        <div className="input-group">
-            <input onChange={(e) => setMessage(e.target.value)}
-                   autoComplete="off"
-                   type="text"
-                   className="form-control"
-                   placeholder="Message..."
-                   value={message}
-            />
-            <div className="input-group-append">
-                <button onClick={(e) => sendMessage(e)}
-                        className="btn btn-primary"
-                        type="button">Send</button>
+        <form onSubmit={sendMessage}>
+            <div className="input-group mb-3">
+                <input
+                value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    type="text"
+                    className="form-control form-control-lg"
+                    id="message"
+                    placeholder="Message..."
+                />
+                <button type="submit" className="btn btn-primary">Send Message</button>
             </div>
-        </div>
+        </form>
+
     );
 };
 

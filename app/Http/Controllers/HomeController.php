@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -36,13 +37,18 @@ class HomeController extends Controller
         ]);
     }
 
-    public function messages(): JsonResponse {
+    public function messages(): JsonResponse
+    {
         $messages = Message::with('user')->get()->append('time');
 
-        return response()->json($messages);
+        return response()->json([
+            'messages' => $messages,
+            'authUserId' => Auth::id()
+        ]);
     }
 
-    public function message(Request $request): JsonResponse {
+    public function message(Request $request): JsonResponse
+    {
         $message = Message::create([
             'user_id' => auth()->id(),
             'text' => $request->get('text'),

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,14 +14,13 @@ class Message extends Model
     public $table = 'messages';
     protected $fillable = ['id', 'user_id', 'text'];
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getTimeAttribute(): string {
-        return date (
-            "d M Y, H:i:s",
-            strtotime($this->attributes['created_at'])
-        );
+    public function getTimeAttribute(): string
+    {
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 }
